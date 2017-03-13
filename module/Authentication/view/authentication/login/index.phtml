@@ -1,0 +1,85 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul.nav.navbar-nav.navbar-right li").eq(1).addClass("active");})');
+
+$headTitle = 'Login page';
+$this->headTitle($headTitle);
+
+if ($this->incorrect) {
+    $incorrect = '<ul class="color-red"><li>' . $this->escapeHtml($this->incorrect) . '</li></ul>';
+} else {
+    $incorrect = '';
+}
+
+$form = $this->form;
+$form->setAttributes([
+    'action' => $this->url('login'),
+]);
+$form->prepare();
+?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-10 col-md-11 col-sm-12">
+                <?php
+                    echo $this->form()->openTag($form);
+                    echo '<fieldset><legend>Form for login</legend><br>';
+                ?>
+                <?php
+                    foreach ($this->form as $element) {
+                        $label = '';
+                        $formElement = '';
+                        $attributes = $element->getAttributes();
+
+                        if ($element->getLabel()) {
+                            $element->setLabelAttributes([
+                                'class' => 'control-label col-sm-3',
+                            ]);
+
+                            if (isset($attributes['required']) && $attributes['required'] == 'required') {
+                                $element->setLabel($element->getLabel() . ' *');
+                            }
+                            $label = $this->formLabel($element);
+                            $label = str_replace('*', '<strong class="label-star">*</strong>', $label);
+                        }
+
+                        if (isset($attributes['type'])) {
+                            switch ($attributes['type']) {
+                                case 'text':
+                                    $formElement  = '<div class="col-sm-9">';
+                                    $formElement .= $this->formText($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'password':
+                                    $formElement  = '<div class="col-sm-9">';
+                                    $formElement .= $this->formPassword($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= $incorrect;
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'checkbox':
+                                    $formElement  = '<div class="col-sm-9">';
+                                    $formElement .= $this->formCheckbox($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'submit':
+                                    $formElement  = '<div class="col-sm-12 col-sm-offset-3">';
+                                    $formElement .= $this->formSubmit($element);
+                                    $formElement .= '</div>';
+                                    break;
+                            }
+                        }
+
+                        echo '<div class="form-group">' . $label . $formElement . '</div>';
+                    }
+                ?>
+                <?php
+                    echo '</fieldset>';
+                    echo $this->form()->closeTag();
+                ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

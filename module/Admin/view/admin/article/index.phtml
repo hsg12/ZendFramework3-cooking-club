@@ -1,0 +1,116 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Manage articles';
+$this->headTitle($headTitle);
+?>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<?php if (count($this->articles) == 0) : ?>
+<div class="row">
+    <div class="col-xs-6">
+        <h4 class="h4-bold list-is-empty">List is empty</h4>
+    </div>
+    <div class="col-xs-6">
+        <a href="<?= $this->url('admin/articles', ['action' => 'add']) ?>" class="btn btn-default pull-right">
+            Add article
+        </a>
+    </div>
+</div>
+<?php else : ?>
+<div class="row articles-count-per-page">
+    <div class="col-xs-6">
+        <form class="form-inline pull-left" action="<?= $this->url('home') ?>" method="post">
+            <div class="form-group">
+                <input class="form-control"
+                       name="articles_count_per_main_page"
+                       size="32"
+                       placeholder="Number of articles on the home page"
+                       type="text"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                >
+            </div>
+            <button class="btn btn-default" type="submit">Send</button>
+        </form>
+    </div>
+    <div class="col-xs-6">
+        <form class="form-inline pull-right" action="<?= $this->url('category', ['id' => $this->category[0]->getId()]) ?>" method="post">
+            <div class="form-group">
+                <input class="form-control"
+                       name="articles_count_per_category_page"
+                       size="35"
+                       placeholder="Number of articles on the category page"
+                       type="text"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                >
+            </div>
+            <button class="btn btn-default" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-6">
+        <h4 class="h4-bold">Articles list</h4>
+    </div>
+    <div class="col-xs-6 add-category-button-box">
+        <div class="pull-right">
+            <a href="<?= $this->url('admin/articles', ['action' => 'add']) ?>" class="btn btn-default">Add article</a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-hover table-striped manage-table">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
+            <th>Categories</th>
+            <th>Is Public</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        <?php foreach ($this->articles as $article) : ?>
+        <tr>
+            <td><?= (int)++$this->articlesCnt ?></td>
+            <td><?= $this->cutString($this->escapeHtml($article->getTitle()), 10) ?></td>
+            <td><?= $this->cutString($this->escapeHtml($article->getDescription()), 10) ?></td>
+            <td><?= $this->cutString($this->escapeHtml($article->getIngredient()), 10) ?></td>
+            <td><?= $this->cutString($this->escapeHtml($article->getInstruction()), 10) ?></td>
+            <td><?= $this->escapeHtml($article->getCategory()->getName()) ?></td>
+            <td><?= $this->escapeHtml($article->getIsPublic()) ? 'Yes' : 'No'; ?></td>
+            <td class="article-image-box-admin-page">
+                <img src="<?= $this->escapeHtml($article->getImage()) ?>" width="30px" height="25px" alt="image">
+            </td>
+            <td>
+                <a href="<?= $this->url('admin/articles', ['page' => $this->pageNumber, 'action' => 'edit', 'id' => (int)$article->getId()]) ?>"
+                   class="hover-none"
+                >
+                    Edit
+                </a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <form action="<?= $this->url('admin/articles', ['page' => $this->pageNumber, 'action' => 'delete', 'id' => (int)$article->getId()]) ?>"
+                      method="post"
+                      class="confirm-plugin-delete-article"
+                >
+                    <button class="hover-none">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+<br>
+<?php
+echo $this->paginationControl(
+    $this->articles,
+    'sliding',
+    'partial/paginatorRoute.phtml',
+    ['route' => 'admin/articles']
+);
+?>
+<?php endif; ?>

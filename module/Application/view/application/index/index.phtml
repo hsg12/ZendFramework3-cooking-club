@@ -1,0 +1,52 @@
+<?php
+$headTitle = "Welcome to the Cooking Club";
+$this->headTitle($headTitle);
+?>
+<?php if (count($this->articles) == 0) : ?>
+<h4 class="h4-bold">List is empty</h4>
+<?php else : ?>
+    <?php foreach ($this->articles as $article) : ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="<?= $this->url('article', ['id' => (int)$article->getId()]) ?>" class="color-blue  hover-underline">
+                        <?= $this->escapeHtml($article->getTitle()) ?>
+                    </a>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="app-category-description-image-box">
+                    <img src="<?= $this->escapeHtml($article->getImage()) ?>"
+                         alt="<?= $this->escapeHtml($article->getTitle()) ?>"
+                         class="pull-left img-responsive"
+                         width="20%"
+                         height="20%"
+                    >
+                    <?php
+                        if ($article->getDescription()) {
+                            echo $this->cutStr($this->escapeHtml($article->getDescription()));
+                        } else {
+                            echo $this->cutStr($this->escapeHtml($article->getInstruction()));
+                        }
+                    ?>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <span>Category: <strong><em><?= $this->escapeHtml($article->getCategory()->getName()) ?></em></strong></span>
+                <span class="pull-right read-more">
+                    <a href="<?= $this->url('article', ['id' => (int)$article->getId()]) ?>" class="hover-underline">Read more &Gt;</a>
+                </span>
+            </div>
+        </div>
+        <br>
+    <?php endforeach; ?>
+<?php endif; ?>
+<br>
+<?php
+echo $this->paginationControl(
+    $this->articles,
+    'sliding',
+    'partial/paginatorRoute.phtml',
+    ['route' => 'home']
+);
+?>

@@ -1,0 +1,145 @@
+<?php
+$headTitle = 'Recipe';
+$this->headTitle($headTitle);
+?>
+<?php if (count($this->article) == 0) : ?>
+<h4 class="h4-bold">Article does not exists</h4>
+<?php else : ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title h4-bold"><?= $this->escapeHtml($article->getTitle()) ?></h4>
+        </div>
+        <div class="panel-body">
+            <div>
+                <?= nl2br($this->escapeHtml($article->getDescription())) ?>
+            </div>
+            <div class="article-recipe-img">
+                <img src="<?= $article->getImage() ?>" alt="<?= $article->getTitle() ?>" class="img-responsive">
+            </div>
+            <div>
+                <h4 class="h4-bold">Ingredients:</h4>
+                <?= nl2br($this->escapeHtml($article->getIngredient())) ?>
+            </div>
+            <hr>
+            <div>
+                <h4 class="h4-bold">Cooking Instructions:</h4>
+                <?= nl2br($this->escapeHtml($article->getInstruction())) ?>
+            </div>
+            <br>
+        </div>
+        <div class="panel-footer">
+            <span>Category: <strong><em><?= $this->escapeHtml($article->getCategory()->getName()) ?></em></strong></span>
+            <span class="pull-right read-more">
+                <a href="<?= $this->referer ?>" class=" hover-underline">&Lt; Back</a>
+            </span>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-6">
+                <?php if ($this->identity()) : ?>
+                    <a class="btn btn-default"
+                       id="form-for-comment-button"
+                       role="button"
+                       data-toggle="collapse"
+                       href="#collapseExample"
+                       aria-expanded="false"
+                       aria-controls="collapseExample">
+                        Form for comment
+                    </a>
+                <?php else : ?>
+                    <div class="must-be-logged-for-comment"><em>You must be logged in to post a comment.</em></div>
+                <?php endif; ?>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right like-dislike-block">
+                        <span class="like-block">
+                            <a href="/article/add-like"
+                               id="addLike"
+                               data-id="<?= (int)$this->article->getId() ?>"
+                               data-identity="<?= $this->identity() ? 'true' : 'false'; ?>"
+                               <?php if ($this->articleLike) { echo "style='color:#369;'"; }?>
+                            >
+                                <i class="fa fa-thumbs-o-up like-thumb"></i>&nbsp;&nbsp;
+                                <span style="font-size:14px;"><?= (int)$this->article->getArticleLike() ?></span>
+                            </a>
+                        </span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="dislike-block">
+                            <a href="#"
+                               id="addDislike"
+                               data-id="<?= (int)$this->article->getId() ?>"
+                               data-identity="<?= $this->identity() ? 'true' : 'false'; ?>"
+                               <?php if ($this->articleDislike) { echo "style='color:#369;'"; }?>
+                            >
+                                <i class="fa fa-thumbs-o-up fa-rotate-180 like-thumb"></i>&nbsp;&nbsp;
+                                <span style="font-size:14px;"><?= (int)$this->article->getArticleDislike() ?></span>
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong id="like-error" class="color-red"></strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-form-block">
+        <?php if ($this->identity()) : ?>
+            <?php
+            $form = $this->form;
+            $form->setAttribute('action', $this->url('article', ['action' => 'add-comment']));
+            $form->prepare();
+            ?>
+            <div class="collapse" id="collapseExample">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="well">
+                            <?= $this->form()->openTag($form) ?>
+                            <?= $this->formHidden($form->get('article')->setValue($article->getId())) ?>
+                            <?= $this->formHidden($form->get('user')->setValue($this->identity()->getId())) ?>
+                            <div class="form-group">
+                                <?= $this->formTextarea($form->get('comment'))?>
+                                <ul id="comment-form-errors" class="color-red"></ul>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->formSubmit($form->get('submit'))?>
+                            </div>
+                            <?= $this->form()->closeTag() ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <br>
+    <hr>
+    <h4>Comments: <span class="comments-count"></span></h4><br>
+
+    <?php if ($this->identity()) : ?>
+    <div id="new-comment" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?= $this->identity()->getName() ?></h3><hr class='comment-block-hr'>
+            <span><i class='fa fa-calendar'></i></span>
+        </div>
+        <div id="comment-text" class="panel-body"></div>
+    </div>
+    <?php endif; ?>
+
+    <div class="comment-block">
+        <?php
+        foreach ($this->comments as $comment) {
+            echo "<div class='panel panel-default'>
+                     <div class='panel-heading'>
+                         <h3 class='panel-title'>{$comment->getUser()->getName()}</h3><hr class='comment-block-hr'>
+                         <span><i class='fa fa-calendar'></i> &nbsp;" . $comment->getRegistrationDate()->format('d F Y') . "</span>
+                     </div>
+                     <div class='panel-body'>" . nl2br($comment->getComment()) . "</div>
+                 </div>";
+        }
+        ?>
+    </div>
+<?php endif; ?>

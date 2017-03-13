@@ -1,0 +1,90 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Add article';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttributes([
+    'action' => $this->url('admin/articles', ['action' => 'add']),
+]);
+$form->prepare();
+?>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-10">
+                <?php
+                echo $this->form()->openTag($form);
+                    echo "<fieldset><legend>Form for adding article</legend>";
+
+                    foreach ($form as $element) {
+                        $label = '';
+                        $formElement = '';
+                        $attributes = $element->getAttributes();
+
+                        if ($element->getLabel()) {
+                            $element->setLabelAttributes([
+                                'class' => 'control-label col-sm-3'
+                            ]);
+
+                            if (isset($attributes['required']) && $attributes['required'] == 'required') {
+                                $element->setLabel($element->getLabel() . ' *');
+                            }
+                            $label = $this->formLabel($element);
+                            $label = str_replace('*', "<strong class='label-star'>*</strong>", $label);
+                        }
+
+                        if (isset($attributes['type'])) {
+                            switch ($attributes['type']) {
+                                case 'text':
+                                    $formElement .= '<div class="col-sm-9">';
+                                    $formElement .= $this->formText($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'textarea':
+                                    $formElement .= '<div class="col-sm-9">';
+                                    $formElement .= $this->formTextarea($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'select':
+                                    $formElement .= '<div class="col-sm-9">';
+                                    $formElement .= $this->formSelect($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'file':
+                                    $formElement .= '<div class="col-sm-9">';
+                                    $formElement .= $this->formFile($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'checkbox':
+                                    $formElement .= '<div class="col-sm-9">';
+                                    $formElement .= $this->formCheckbox($element);
+                                    $formElement .= '</div>';
+                                    break;
+                                case 'submit':
+                                    $formElement .= '<div class="col-sm-12 col-sm-offset-3">';
+                                    $formElement .= $this->formSubmit($element);
+                                    $formElement .= '</div>';
+                                    break;
+                            }
+                        }
+
+                        echo '<div class="form-group">' . $label . $formElement . '</div>';
+                    }
+
+                    echo "</fieldset>";
+                echo $this->form()->closeTag()
+                ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= $this->form()->closeTag() ?>

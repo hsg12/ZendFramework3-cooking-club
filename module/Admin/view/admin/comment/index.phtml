@@ -1,0 +1,58 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Manage comments';
+$this->headTitle($headTitle);
+?>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="admin-article-search-block">
+            <form class="form-inline" action="#" method="post">
+                <div class="form-group">
+                    <input class="form-control"
+                           name="search-article"
+                           size="50"
+                           placeholder="Find an article in which is comment"
+                           type="text"
+                    >
+                </div>
+                <button class="btn btn-default" type="submit">Search</button>
+            </form>
+            <ul class="admin-article-search-result"></ul>
+        </div>
+    </div>
+</div>
+<br>
+<?php if (! $this->comments) : ?>
+    <?php if (is_array($this->comments) && count($this->comments) == 0) : ?>
+        <h4 class="color-red">Article has not any comments</h4>
+    <?php endif; ?>
+<?php else : ?>
+    <h4>Comment(s) for article "<strong><em><?= $this->comments[0]->getArticle()->getTitle() ?></em></strong>"</h4>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover manage-table">
+            <tr>
+                <th>Author</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            <?php foreach ($this->comments as $comment) : ?>
+            <tr>
+                <td><?= $this->escapeHtml($comment->getUser()->getName()) ?></td>
+                <td><?= $this->cutString($this->escapeHtml($comment->getComment()), 30) ?></td>
+                <td><?= $this->escapeHtml($comment->getRegistrationDate()->format('d F Y')) ?></td>
+                <td>
+                    <form action="<?= $this->url('admin/comments', ['article' => $comment->getArticle()->getId(), 'action' => 'delete', 'id' => $comment->getId()]) ?>"
+                          method="post"
+                          class="confirm-plugin-delete-comment"
+                    >
+                        <button class="hover-none">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif; ?>

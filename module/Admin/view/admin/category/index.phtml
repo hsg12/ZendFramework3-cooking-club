@@ -1,0 +1,75 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Manage categories';
+$this->headTitle($headTitle);
+?>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<?php if (count($this->categories) == 0) : ?>
+<div class="row">
+    <div class="col-xs-6">
+        <h4 class="h4-bold list-is-empty">List is empty</h4>
+    </div>
+    <div class="col-xs-6">
+        <a href="<?= $this->url('admin/categories', ['page' => (int)$this->pageNumber, 'action' => 'add']) ?>"
+           class="btn btn-default pull-right"
+        >
+            Add Category
+        </a>
+    </div>
+</div>
+<?php else : ?>
+<div class="row">
+    <div class="col-xs-6">
+        <h4 class="h4-bold">Categories list</h4>
+    </div>
+    <div class="col-xs-6 add-category-button-box">
+        <div class="pull-right">
+            <a href="<?= $this->url('admin/categories', ['page' => (int)$this->pageNumber, 'action' => 'add']) ?>" class="btn btn-default">Add Category</a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-striped table-hover manage-table">
+        <tr>
+            <th>#</th>
+            <th>Category id</th>
+            <th>Parent id</th>
+            <th>Category name</th>
+            <th>Actions</th>
+        </tr>
+        <?php foreach ($this->categories as $category) : ?>
+        <tr>
+            <td><?= (int)++$this->categoriesCnt ?></td>
+            <td><?= $this->escapehtml($category->getId()) ?></td>
+            <td><?= $this->escapehtml($category->getParentId()) ?></td>
+            <td><?= $this->escapehtml($category->getName()) ?></td>
+            <td>
+                <a href="<?= $this->url('admin/categories', ['page' => (int)$this->pageNumber, 'action' => 'edit', 'id' => (int)$category->getId()]) ?>"
+                   class="hover-none"
+                >
+                    Edit
+                </a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <form action="<?= $this->url('admin/categories', ['page' => (int)$this->pageNumber, 'action' => 'delete', 'id' => (int)$category->getId()]) ?>"
+                      method="post"
+                      class="confirm-plugin-delete-category"
+                >
+                    <button class="hover-none">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+<br>
+<?php
+echo $this->paginationControl(
+    $this->categories,
+    'sliding',
+    'partial/paginatorRoute.phtml',
+    ['route' => 'admin/categories']
+);
+?>
+<?php endif; ?>

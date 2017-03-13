@@ -1,0 +1,55 @@
+<?php
+$headTitle = 'Contact Us';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('contact-us'));
+$form->prepare();
+?>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <div><i class="fa fa-phone"></i>&nbsp;&nbsp;<em>Tel (123) 22 33 556</em></div>
+            <div><i class="fa fa-address-book-o"></i>&nbsp;&nbsp;<em>Some address</em></div>
+        </div>
+        <br>
+        <?php $this->getFlashMessenger($this->flashMessenger()) ?>
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-10">
+                <?= $this->form()->openTag($form) ?>
+                <fieldset>
+                    <legend>Form for contact</legend>
+                    <div class="form-group">
+                        <?= $this->formLabel($form->get('name')) ?>
+                        <div class="col-sm-9">
+                            <?= $this->formText($form->get('name')) ?>
+                            <?= $this->formElementErrors($form->get('name')) ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <?= $this->formLabel($form->get('email')) ?>
+                        <div class="col-sm-9">
+                            <?= $this->formEmail($form->get('email')) ?>
+                            <?= $this->formElementErrors($form->get('email')) ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <?= $this->formLabel($form->get('message')) ?>
+                        <div class="col-sm-9">
+                            <?= $this->formTextarea($form->get('message')) ?>
+                            <?= $this->formElementErrors($form->get('message')) ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 col-sm-offset-3">
+                            <?= $this->formSubmit($form->get('submit')) ?>
+                        </div>
+                    </div>
+                    <?= $this->form()->closeTag() ?>
+                </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

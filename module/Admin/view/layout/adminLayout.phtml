@@ -1,0 +1,109 @@
+<?= $this->doctype() ?>
+<?php $user = $this->identity() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle() ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/liMenuVert.css'))
+            ->prependStylesheet($this->basePath('css/jquery-filestyle.min.css'))
+            ->prependStylesheet($this->basePath('css/j-confirm-action.css'))
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap-lumen.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/jquery.liMenuVert.js'))
+            ->prependFile($this->basePath('js/jquery-filestyle.min.js'))
+            ->prependFile($this->basePath('js/j-confirm-action.js'))
+            ->prependFile($this->basePath('js/app-script.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+        ?>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?= $this->url('home') ?>">
+                        <img src="<?= $this->basePath('img/logo.png') ?>" height="28" alt="Cooking Club"/>&nbsp;
+                        <span>Cooking Club</span>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <?= $this->navigation('top_navigation')->menu()->setUlClass('nav navbar-nav')->render() ?>
+                    <?php if ($user && (($user->getRole() === 'superadmin') || ($user->getRole() === 'admin'))) : ?>
+                    <ul class="nav navbar-nav">
+                        <li class="admin-area"><a href="/admin">Admin Area</a></li>
+                    </ul>
+                    <?php endif; ?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php if ($user) : ?>
+                            <li>
+                                <span class="hi-user">Hello&nbsp;
+                                    <strong><?= $this->getShortString($user->getName(), 15) ?></strong>
+                                </span>
+                            </li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <?php else : ?>
+                            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h1 class="h3"><?= $this->headTitle()->renderTitle() ?></h1>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right">
+                        <div class="breadcrumb-box">
+                            <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(1)->setPartial('partial/breadcrumb') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <?= $this->content ?>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <hr>
+            <div class="container">
+                <p>&copy; <?= $this->getYear() ?> by PHP-User. All rights reserved.</p>
+            </div>
+        </footer>
+        <!-- For scrolling to the top -->
+        <a id="back-to-top"
+           href="#"
+           class="btn btn-primary back-to-top"
+           role="button"
+           data-toggle="tooltip"
+           data-placement="left">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

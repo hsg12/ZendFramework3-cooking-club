@@ -1,0 +1,13 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Admin Area';
+$this->headTitle($headTitle);
+?>
+<h4 class="admin-capabilities">You have the following capabilities:</h4>
+<ul class="list-unstyled">
+    <li><a href="<?= $this->url('admin/categories', ['action' => 'index']) ?>" class="hover-underline">Manage categories</a></li>
+    <li><a href="<?= $this->url('admin/articles',   ['action' => 'index']) ?>" class="hover-underline">Manage articles</a></li>
+    <li><a href="<?= $this->url('admin/comments',   ['action' => 'index']) ?>" class="hover-underline">Manage comments</a></li>
+    <li><a href="<?= $this->url('admin/users',      ['action' => 'index']) ?>" class="hover-underline">Manage users</a></li>
+</ul>

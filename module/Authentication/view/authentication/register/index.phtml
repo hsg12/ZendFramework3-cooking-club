@@ -1,0 +1,110 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul.nav.navbar-nav.navbar-right li").eq(0).addClass("active");})');
+
+$headTitle = 'Registration page';
+$this->headTitle($headTitle);
+
+if ($this->nameExists) {
+    $nameExists = '<ul class="color-red"><li>' . $this->escapeHtml($this->nameExists) . '</li></ul>';
+} else {
+    $nameExists = '';
+}
+
+$form = $this->form;
+$form->setAttributes([
+    'action' => $this->url('register'),
+]);
+$form->prepare();
+
+$name = $form->get('name');
+$name->setLabel($name->getLabel() . ' *');
+$nameLabel = str_replace('*', '<strong class="label-star">*</strong>', $this->formLabel($name));
+
+$email = $form->get('email');
+$email->setLabel($email->getLabel() . ' *');
+$emailLabel = str_replace('*', '<strong class="label-star">*</strong>', $this->formLabel($email));
+
+$password = $form->get('password');
+$password->setLabel($password->getLabel() . ' *');
+$passwordLabel = str_replace('*', '<strong class="label-star">*</strong>', $this->formLabel($password));
+
+$confirmPassword = $form->get('confirmPassword');
+$confirmPassword->setLabel($confirmPassword->getLabel() . ' *');
+$confirmPasswordLabel = str_replace('*', '<strong class="label-star">*</strong>', $this->formLabel($confirmPassword));
+
+$captcha = $form->get('captcha');
+$captcha->setLabel($captcha->getLabel() . ' *');
+$captchaLabel = str_replace('*', '<strong class="label-star">*</strong>', $this->formLabel($captcha));
+?>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-10 col-md-11 col-sm-12">
+                <?php
+                    echo $this->form()->openTag($form);
+                    echo '<fieldset><legend>Form for registration</legend><br>';
+                ?>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <?= $nameLabel ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?= $this->formText($name) ?>
+                        <?= $this->formElementErrors($name) ?>
+                        <?= $nameExists ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <?= $emailLabel ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?= $this->formText($email) ?>
+                        <?= $this->formElementErrors($email) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <?= $passwordLabel ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?= $this->formPassword($password) ?>
+                        <?= $this->formElementErrors($password) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <?= $confirmPasswordLabel ?>
+                    </div>
+                    <div class="col-sm-9">
+                        <?= $this->formPassword($confirmPassword) ?>
+                        <?= $this->formElementErrors($confirmPassword) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <?= $captchaLabel ?>
+                    </div>
+                    <div class="col-sm-9 app-captcha">
+                        <div class="captcha-box">
+                            <?= $this->formCaptcha($captcha) ?>
+                        </div>
+                        <?= $this->formElementErrors($captcha) ?>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-12 col-sm-offset-3">
+                        <?= $this->formSubmit($form->get('submit')) ?>
+                    </div>
+                </div>
+                <?php
+                    echo '</fieldset>';
+                    echo $this->form()->closeTag();
+                ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

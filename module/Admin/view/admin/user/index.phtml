@@ -1,0 +1,117 @@
+<?php
+$this->headScript()->appendScript('$(function(){$("ul li.admin-area").addClass("active");})');
+
+$headTitle = 'Manage users';
+$this->headTitle($headTitle);
+?>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<?php if (! $this->admins) : ?>
+    <h4 class="h4-bold">Admin's list is empty</h4>
+<?php else : ?>
+    <a class="btn btn-default"
+       role="button"
+       data-toggle="collapse"
+       href="#collapseExample"
+       aria-expanded="false"
+       aria-controls="collapseExample"
+    >
+        Admin's list
+    </a>
+    <br>
+    <br>
+    <div class="collapse" id="collapseExample">
+        <div class="table-responsive">
+                <table class="table table-striped table-hover manage-table">
+                    <tr>
+                        <th>#</th>
+                        <th>Admin name</th>
+                        <th>Email address</th>
+                        <th>Role</th>
+                        <th>Registration date</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php foreach ($this->admins as $user) : ?>
+                        <tr>
+                            <td><?= (int)++$this->cnt ?></td>
+                            <td><?= $this->getShortString($this->escapeHtml($user->getName()), 15) ?></td>
+                            <td><?= $this->escapeHtml($user->getEmail()) ?></td>
+                            <td><?= $this->escapeHtml($user->getRole()) ?></td>
+                            <td><?= $this->escapeHtml($user->getRegistrationDate()->format('d F Y')) ?></td>
+                            <td><a href="<?= $this->url('admin/users', ['action' => 'edit', 'id' => (int)$user->getId(), 'page' => $this->pageNumber]) ?>">Edit</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+    </div>
+<?php endif; ?>
+<hr>
+<?php if (count($this->paginator) == 0) : ?>
+    <h4 class="h4-bold">User's list is empty</h4>
+<?php else : ?>
+    <div class="row admin-user-form-box">
+        <div class="col-sm-6">
+            <form class="form-inline" action="<?= $this->url('admin/users') ?>" method="post">
+                <div class="form-group">
+                    <input class="form-control" name="users-count-per-admin-page" size="18" placeholder="Users count per page" type="text">
+                </div>
+                <button class="btn btn-default" type="submit">Send</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="user-search-box">
+                <form class="form-inline"
+                      id="user-search-form"
+                      action="#"
+                      method="post"
+                      data-page="<?= $this->pageNumber ?>"
+                >
+                    <div class="form-group">
+                        <input class="form-control" name="search" size="18" placeholder="Search User" type="text">
+                    </div>
+                    <button class="btn btn-default" type="submit" id="user-search">Search</button>
+
+                </form>
+                <ul id="user-search-result"></ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h4 class="h4-bold">User's list</h4><br>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover manage-table">
+            <tr>
+                <th>#</th>
+                <th>User name</th>
+                <th>Email address</th>
+                <th>Role</th>
+                <th>Registration date</th>
+                <th>Action</th>
+            </tr>
+            <?php foreach ($this->paginator as $user) : ?>
+            <tr>
+                <td><?= (int)++$this->usersCnt ?></td>
+                <td><?= $this->getShortString($this->escapeHtml($user->getName()), 15) ?></td>
+                <td><?= $this->escapeHtml($user->getEmail()) ?></td>
+                <td><?= $this->escapeHtml($user->getRole()) ?></td>
+                <td><?= $this->escapeHtml($user->getRegistrationDate()->format('d F Y')) ?></td>
+                <td>
+                    <a href="<?= $this->url('admin/users', ['action' => 'edit', 'id' => (int)$user->getId(), 'page' => $this->pageNumber]) ?>"
+                       class="hover-underline"
+                    >
+                        Edit
+                    </a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+    <br>
+    <?php
+    echo $this->paginationControl(
+        $this->paginator,
+        'sliding',
+        'partial/paginatorQuery',
+        ['route' => 'admin/users']
+    );
+    ?>
+<?php endif; ?>
