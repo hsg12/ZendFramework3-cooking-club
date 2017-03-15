@@ -17,21 +17,25 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Application\Service\FormServiceInterface;
 use Zend\Form\FormInterface;
+use Authentication\Service\ValidationServiceInterface;
 
 class ArticleController extends AbstractActionController
 {
     private $entityManager;
     private $articleForm;
     private $formService;
+    private $validationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ArticleForm $articleForm,
-        FormServiceInterface $formService
+        FormServiceInterface $formService,
+        ValidationServiceInterface $validationService
     ) {
-        $this->entityManager = $entityManager;
-        $this->articleForm   = $articleForm;
-        $this->formService   = $formService;
+        $this->entityManager     = $entityManager;
+        $this->articleForm       = $articleForm;
+        $this->formService       = $formService;
+        $this->validationService = $validationService;
     }
 
     public function indexAction()
@@ -103,6 +107,15 @@ class ArticleController extends AbstractActionController
             $form->setData($data);
 
             if ($form->isValid()) {
+
+                $repository = $this->entityManager->getRepository(Article::class);
+
+                if ($this->validationService->isObjectExists($repository, $article->getTitle(), ['title'])) {
+                    $titleExists = 'Article with title "' . $article->getTitle() . '" exists already';
+                    $form->get('title')->setMessages(['titleExists' => $titleExists]);
+                    return ['form' => $form]; die;
+                }
+
                 $article = $form->getData();
                 if ($fileName) {
                     $article->setImage('/img/article/' . $fileName);

@@ -44,17 +44,10 @@ class Module
                 AuthenticationService::class => function ($container) {
                     return $container->get('doctrine.authenticationservice.orm_default');
                 },
-
-                // validation service
-
-                Service\ValidationService::class => function ($container) {
-                    $entityManager = $container->get(EntityManager::class);
-                    $repository = $entityManager->getRepository(User::class);
-                    return new Service\ValidationService($repository);
-                },
             ],
             'invokables' => [
                 'authStorage' => Model\AppAuthStorage::class,
+                'validationService' => Service\ValidationService::class,
             ],
         ];
     }
@@ -67,7 +60,7 @@ class Module
                     return new Controller\RegisterController(
                         $container->get(EntityManager::class),
                         $container->get(Form\RegisterForm::class),
-                        $container->get(Service\ValidationService::class),
+                        $container->get('validationService'),
                         $container->get(AuthenticationService::class)
                     );
                 },

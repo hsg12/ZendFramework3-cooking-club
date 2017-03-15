@@ -61,14 +61,16 @@ class Module
                     return new Controller\CategoryController(
                         $container->get(EntityManager::class),
                         $container->get(Form\CategoryForm::class),
-                        $container->get('formService')
+                        $container->get('formService'),
+                        $container->get('validationService')
                     );
                 },
                 Controller\ArticleController::class => function ($container) {
                     return new Controller\ArticleController(
                         $container->get(EntityManager::class),
                         $container->get(Form\ArticleForm::class),
-                        $container->get('formService')
+                        $container->get('formService'),
+                        $container->get('validationService')
                     );
                 },
                 Controller\CommentController::class => function ($container) {

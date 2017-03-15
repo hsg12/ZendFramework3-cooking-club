@@ -4,12 +4,6 @@ $this->headScript()->appendScript('$(function(){$("ul.nav.navbar-nav.navbar-righ
 $headTitle = 'Registration page';
 $this->headTitle($headTitle);
 
-if ($this->nameExists) {
-    $nameExists = '<ul class="color-red"><li>' . $this->escapeHtml($this->nameExists) . '</li></ul>';
-} else {
-    $nameExists = '';
-}
-
 $form = $this->form;
 $form->setAttributes([
     'action' => $this->url('register'),
@@ -52,7 +46,6 @@ $captchaLabel = str_replace('*', '<strong class="label-star">*</strong>', $this-
                     <div class="col-sm-9">
                         <?= $this->formText($name) ?>
                         <?= $this->formElementErrors($name) ?>
-                        <?= $nameExists ?>
                     </div>
                 </div>
                 <div class="form-group">

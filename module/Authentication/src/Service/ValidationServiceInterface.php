@@ -2,7 +2,9 @@
 
 namespace Authentication\Service;
 
+use Doctrine\Common\Persistence\ObjectRepository;
+
 interface ValidationServiceInterface
 {
-    public function isObjectExists($value, $fields);
+    public function isObjectExists(ObjectRepository $repository, $value, $fields);
 }

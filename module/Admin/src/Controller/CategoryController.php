@@ -17,21 +17,25 @@ use Application\Service\FormServiceInterface;
 use Zend\Form\FormInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Admin\Form\CategoryForm;
+use Authentication\Service\ValidationServiceInterface;
 
 class CategoryController extends AbstractActionController
 {
     private $entityManager;
     private $categoryForm;
     private $formService;
+    private $validationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         CategoryForm $categoryForm,
-        FormServiceInterface $formService
+        FormServiceInterface $formService,
+        ValidationServiceInterface $validationService
     ) {
-        $this->entityManager = $entityManager;
-        $this->categoryForm  = $categoryForm;
-        $this->formService   = $formService;
+        $this->entityManager     = $entityManager;
+        $this->categoryForm      = $categoryForm;
+        $this->formService       = $formService;
+        $this->validationService = $validationService;
     }
 
     public function indexAction()
@@ -75,6 +79,17 @@ class CategoryController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
+
+            $repository = $this->entityManager->getRepository(Category::class);
+
+            if ($this->validationService->isObjectExists($repository, $request->getPost('name'), ['name'])) {
+                $nameExists = 'Category with name "' . $request->getPost('name') . '" exists already';
+                $form->get('name')->setMessages(['nameExists' => $nameExists]);
+                return [
+                    'form' => $form,
+                    'pageNumber' => $pageNumber,
+                ];
+            }
 
             $form->setData($request->getPost());
 

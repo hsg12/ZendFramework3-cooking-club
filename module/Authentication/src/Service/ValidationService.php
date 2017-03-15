@@ -8,17 +8,10 @@ use DoctrineModule\Validator\ObjectExists;
 
 class ValidationService implements ValidationServiceInterface
 {
-    private $repository;
-
-    public function __construct(ObjectRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    public function isObjectExists($value, $fields)
+    public function isObjectExists(ObjectRepository $repository, $value, $fields)
     {
         $object = new ObjectExists([
-            'object_repository' => $this->repository,
+            'object_repository' => $repository,
             'fields' => $fields,
         ]);
 
