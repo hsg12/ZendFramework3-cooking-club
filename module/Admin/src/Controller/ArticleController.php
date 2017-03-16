@@ -156,6 +156,21 @@ class ArticleController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
+
+            /* In order it was impossible to add an article to a category which has a child category */
+            $categoryId = (int)$request->getPost('category');
+            $childCategories = $this->entityManager->getRepository(Category::class)->findBy(['parentId' => $categoryId]);
+
+            if ($childCategories) {
+                $this->flashMessenger()->addErrorMessage('Cannot add article to category which has child category');
+
+                // in order to get flashMessenger on add page
+                $this->redirect()->refresh();
+
+                return ['form' => $form]; die;
+            }
+            /* End block */
+
             $data = array_merge_recursive(
                 $request->getPost()->toArray(),
                 $request->getFiles()->toArray()
