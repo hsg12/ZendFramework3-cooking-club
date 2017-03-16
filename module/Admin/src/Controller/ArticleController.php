@@ -167,7 +167,13 @@ class ArticleController extends AbstractActionController
                 // in order to get flashMessenger on add page
                 $this->redirect()->refresh();
 
-                return ['form' => $form]; die;
+                return [
+                    'form'       => $form,
+                    'pageNumber' => $pageNumber,
+                    'id'         => $id,
+                    'article'    => $article,
+                ];
+                die;
             }
             /* End block */
 
