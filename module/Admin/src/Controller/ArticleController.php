@@ -187,7 +187,17 @@ class ArticleController extends AbstractActionController
 
             $form->setData($data);
 
-            if ($form->isValid()) {
+            $articleTitleOld = $article->getTitle();
+            $articleTitleNew = trim(strip_tags($form->get('title')->getValue()));
+
+            $repository = $this->entityManager->getRepository(Article::class);
+
+            if ($repository->findBy(['title' => $articleTitleNew]) && $articleTitleNew !== $articleTitleOld) {
+                $titleExists = 'Article with title "' . $articleTitleNew . '" exists already';
+                $form->get('title')->setMessages(['titleExists' => $titleExists]);
+            }
+
+            if ($form->isValid() && empty($form->getMessages())) {
                 $article = $form->getData();
                 if ($fileName) {
                     $article->setImage('/img/article/' . $fileName);

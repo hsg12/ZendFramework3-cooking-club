@@ -1,13 +1,13 @@
 <?php if ($this->pageCount): ?>
-<?php
-$params = [];
-$params['id'] = 1;
+    <?php
+    $params = [];
+    $params['id'] = 1;
 
 // View helper for category page (in order to have $params['id'])
-if ($this->GetRouteParams()) {
-    $params = $this->GetRouteParams();
-}
-?>
+    if ($this->GetRouteParams()) {
+        $params = $this->GetRouteParams();
+    }
+    ?>
     <div class="text-center">
         <ul class="pagination">
             <!-- Previous page link -->

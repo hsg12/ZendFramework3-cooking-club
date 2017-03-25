@@ -81,8 +81,9 @@ class CategoryController extends AbstractActionController
         if ($request->isPost()) {
 
             $repository = $this->entityManager->getRepository(Category::class);
+            $name = trim(strip_tags($request->getPost('name')));
 
-            if ($this->validationService->isObjectExists($repository, $request->getPost('name'), ['name'])) {
+            if ($this->validationService->isObjectExists($repository, $name, ['name'])) {
                 $nameExists = 'Category with name "' . $request->getPost('name') . '" exists already';
                 $form->get('name')->setMessages(['nameExists' => $nameExists]);
                 return [
@@ -135,7 +136,17 @@ class CategoryController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
-            if ($form->isValid()) {
+            $categoryNameOld = $category->getName();
+            $categoryNameNew = trim(strip_tags($form->get('name')->getValue()));
+
+            $repository = $this->entityManager->getRepository(Category::class);
+
+            if ($repository->findBy(['name' => $categoryNameNew]) && $categoryNameNew !== $categoryNameOld) {
+                $nameExists = 'Category with name "' . $categoryNameNew . '" exists already';
+                $form->get('name')->setMessages(['nameExists' => $nameExists]);
+            }
+
+            if ($form->isValid() && empty($form->getMessages())) {
                 $category = $form->getData();
 
                 $this->entityManager->persist($category);
