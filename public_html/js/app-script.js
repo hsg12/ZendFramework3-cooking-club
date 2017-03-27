@@ -164,10 +164,6 @@ $(function(){
         $('div.add-category-button-box div').removeClass('pull-right').addClass('pull-left');
     }
 
-    /////   In order to add 0 to category list(Admin/Category(add, edit form))/
-
-    $('<option value="0">0</option>').insertAfter('form#category select option:first-child');
-
     /////   For admin add-article checkbox   //////////////////////////////////
 
     $('#article label:eq(5)').removeClass('control-label').css('textAlign', 'right');

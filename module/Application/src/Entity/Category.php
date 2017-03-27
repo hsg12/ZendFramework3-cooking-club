@@ -35,14 +35,13 @@ class Category
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=false)
      *
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Attributes({"class":"form-control", "id":"parentId", "required":"required"})
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Attributes({"class":"form-control", "id":"parentId"})
      * @Annotation\Options({
      *   "label":"Parent ID",
      *   "label_attributes":{"class":"control-label col-sm-3"},
-     *   "empty_option": "Select Parent ID",
+     *   "empty_option": "Select Parent ID or will be created new category",
      *   "target_class":"Application\Entity\Category",
-     *   "property": "id"
+     *   "property": "name"
      * })
      */
     private $parentId;

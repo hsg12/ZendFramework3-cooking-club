@@ -4,9 +4,6 @@ namespace Admin\Controller;
 
 use Application\Entity\Article;
 use Application\Entity\Category;
-use Application\Entity\Comment;
-use Application\Entity\ArticleLike;
-use Application\Entity\ArticleDislike;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -231,45 +228,11 @@ class ArticleController extends AbstractActionController
             return $this->notFoundAction();
         }
 
-        $this->deleteComments($id);
-        $this->deleteLikes($id);
-        $this->deleteDisLikes($id);
-
         $this->entityManager->remove($article);
         $this->entityManager->flush();
 
         $this->flashMessenger()->setNamespace('success')->addMessage('Article deleted');
 
         return $this->redirect()->toRoute('admin/articles', ['page' => $pageNumber]);
-    }
-
-    private function deleteComments($articleId)
-    {
-        $comments = $this->entityManager->getRepository(Comment::class)->findBy(['article' => $articleId]);
-        if ($comments) {
-            foreach ($comments as $comment) {
-                $this->entityManager->remove($comment);
-            }
-        }
-    }
-
-    private function deleteLikes($articleId)
-    {
-        $articleLikes = $this->entityManager->getRepository(ArticleLike::class)->findBy(['article' => $articleId]);
-        if ($articleLikes) {
-            foreach ($articleLikes as $articleLike) {
-                $this->entityManager->remove($articleLike);
-            }
-        }
-    }
-
-    private function deleteDisLikes($articleId)
-    {
-        $articleDislikes = $this->entityManager->getRepository(ArticleDislike::class)->findBy(['article' => $articleId]);
-        if ($articleDislikes) {
-            foreach ($articleDislikes as $articleDislike) {
-                $this->entityManager->remove($articleDislike);
-            }
-        }
     }
 }

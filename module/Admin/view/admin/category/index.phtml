@@ -35,7 +35,7 @@ $this->headTitle($headTitle);
         <tr>
             <th>#</th>
             <th>Category id</th>
-            <th>Parent id</th>
+            <th>Parent category</th>
             <th>Category name</th>
             <th>Actions</th>
         </tr>
@@ -43,7 +43,7 @@ $this->headTitle($headTitle);
         <tr>
             <td><?= (int)++$this->categoriesCnt ?></td>
             <td><?= $this->escapehtml($category->getId()) ?></td>
-            <td><?= $this->escapehtml($category->getParentId()) ?></td>
+            <td><?= $this->escapeHtml($this->getCategoryParentName($category->getParentId())) ?></td>
             <td><?= $this->escapehtml($category->getName()) ?></td>
             <td>
                 <a href="<?= $this->url('admin/categories', ['page' => (int)$this->pageNumber, 'action' => 'edit', 'id' => (int)$category->getId()]) ?>"

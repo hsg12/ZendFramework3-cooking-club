@@ -101,6 +101,13 @@ class Module
             'invokables' => [
                 'cutString' => View\Helper\CutString::class,
             ],
+            'factories' => [
+                'getCategoryParentName' => function ($container) {
+                    return new View\Helper\GetCategoryParentName(
+                        $container->get(EntityManager::class)
+                    );
+                },
+            ],
         ];
     }
 
