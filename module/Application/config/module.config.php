@@ -185,6 +185,10 @@ return [
                 'label' => 'Contact Us',
                 'route' => 'contact-us',
             ],
+            'portfolio' => [
+                'label' => 'Portfolio',
+                'route' => 'portfolio',
+            ],
         ],
     ],
 ];

@@ -32,7 +32,8 @@
             "Application\\": "module/Application/src/",
             "Contact\\": "module/Contact/src/",
             "Authentication\\": "module/Authentication/src/",
-            "Admin\\": "module/Admin/src/"
+            "Admin\\": "module/Admin/src/",
+            "Portfolio\\": "module/Portfolio/src/"
         }
     },
     "autoload-dev": {

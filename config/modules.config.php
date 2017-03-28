@@ -31,4 +31,5 @@ return [
     'Authentication',
     'Admin',
     'Contact',
+    'Portfolio',
 ];
