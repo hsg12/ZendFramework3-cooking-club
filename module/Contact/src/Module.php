@@ -2,7 +2,6 @@
 
 namespace Contact;
 
-use Doctrine\ORM\EntityManager;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
 

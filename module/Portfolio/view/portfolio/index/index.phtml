@@ -1,4 +1,9 @@
-<?= $this->headStyle()->appendStyle('.portfolio { border: 1px solid #ddd; padding: 10px; border-radius: 3px }'); ?>
+<?php
+    echo $this->headStyle()->appendStyle('
+        .portfolio { border: 1px solid #ddd; padding: 10px; border-radius: 3px; }
+        .portfolio:hover { border: 1px solid #999; }
+    ');
+?>
 <?php
 $headTitle = 'Portfolio';
 $this->headTitle($headTitle);
