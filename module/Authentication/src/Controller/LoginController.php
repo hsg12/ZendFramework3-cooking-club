@@ -31,6 +31,11 @@ class LoginController extends AbstractActionController
 
     public function indexAction()
     {
+        if ($this->identity()) {
+            return $this->redirect()->toRoute('home');
+            die;
+        }
+        
         $incorrect = '';
         $user = new User();
         $form = $this->loginForm;

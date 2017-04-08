@@ -37,6 +37,11 @@ class RegisterController extends AbstractActionController
 
     public function indexAction()
     {
+        if ($this->identity()) {
+            return $this->redirect()->toRoute('home');
+            die;
+        }
+
         $user = new User();
         $form = $this->registerForm;
 
