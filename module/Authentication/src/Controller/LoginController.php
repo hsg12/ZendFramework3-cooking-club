@@ -35,7 +35,7 @@ class LoginController extends AbstractActionController
             return $this->redirect()->toRoute('home');
             die;
         }
-        
+
         $incorrect = '';
         $user = new User();
         $form = $this->loginForm;
