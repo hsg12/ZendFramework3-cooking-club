@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
 
         $articlesQueryBuilder = $this->entityManager
                                      ->getRepository(Article::class)
-                                     ->getArticlesQueryBuilder($this->entityManager, true);
+                                     ->getArticlesQueryBuilder(true);
 
         $adapter = new DoctrinePaginator(new ORMPaginator($articlesQueryBuilder));
         $paginator = new Paginator($adapter);

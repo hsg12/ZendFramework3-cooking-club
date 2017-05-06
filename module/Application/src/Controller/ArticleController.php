@@ -236,7 +236,7 @@ class ArticleController extends AbstractActionController
         $search = $stringTrimFilter->filter($search);
 
         if (! empty($search)) {
-            $articles = $this->entityManager->getRepository(Article::class)->searchArticle($this->entityManager, $search);
+            $articles = $this->entityManager->getRepository(Article::class)->searchArticle($search);
         }
 
         $response->setContent(\Zend\Json\Json::encode($articles));

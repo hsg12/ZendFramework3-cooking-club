@@ -3,14 +3,13 @@
 namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Article;
 
 class ArticleRepository extends EntityRepository
 {
-    public function getArticlesQueryBuilder(EntityManagerInterface $entityManager, $consideringIsPublic = false)
+    public function getArticlesQueryBuilder($consideringIsPublic = false)
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a');
         $qb->from(Article::class, 'AS a');
         if ($consideringIsPublic) {
@@ -21,9 +20,9 @@ class ArticleRepository extends EntityRepository
         return $qb ? $qb : false;
     }
 
-    public function getArticlesQueryBuilderForCategory(EntityManagerInterface $entityManager, $categoryId, $consideringIsPublic = false)
+    public function getArticlesQueryBuilderForCategory($categoryId, $consideringIsPublic = false)
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('a');
         $qb->from(Article::class, 'AS a');
         $qb->where('a.category = ?1');
@@ -36,11 +35,11 @@ class ArticleRepository extends EntityRepository
         return $qb ? $qb : false;
     }
 
-    public function searchArticle(EntityManagerInterface $entityManager, $value)
+    public function searchArticle($value)
     {
         $search = '%' . $value . '%';
         $sql = "SELECT a.id, a.title FROM Application\Entity\Article AS a WHERE a.title LIKE :search";
-        $query = $entityManager->createQuery($sql)->setParameter('search', $search);
+        $query = $this->getEntityManager()->createQuery($sql)->setParameter('search', $search);
         $result = $query->getResult();
 
         return $result ? $result : false;

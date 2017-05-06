@@ -35,8 +35,8 @@ class UserController extends AbstractActionController
             return $this->redirect()->refresh();
         }
 
-        $admins = $this->entityManager->getRepository(User::class)->getAdmins($this->entityManager);
-        $usersQueryBuilder = $this->entityManager->getRepository(User::class)->getUsersQueryBuilder($this->entityManager);
+        $admins = $this->entityManager->getRepository(User::class)->getAdmins();
+        $usersQueryBuilder = $this->entityManager->getRepository(User::class)->getUsersQueryBuilder();
 
         $adapter = new DoctrinePaginator(new ORMPaginator($usersQueryBuilder));
         $paginator = new Paginator($adapter);
@@ -103,7 +103,7 @@ class UserController extends AbstractActionController
         $search = trim(strip_tags($request->getPost('formData')));
 
         if (! empty($search)) {
-            $result = $this->entityManager->getRepository(User::class)->searchUser($this->entityManager, $search);
+            $result = $this->entityManager->getRepository(User::class)->searchUser($search);
         }
 
         $response->setContent(\Zend\Json\Json::encode([$result, $page]));

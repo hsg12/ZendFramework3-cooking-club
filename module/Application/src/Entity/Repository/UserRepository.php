@@ -4,7 +4,6 @@ namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Application\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 
 class UserRepository extends EntityRepository
 {
@@ -23,9 +22,9 @@ class UserRepository extends EntityRepository
         return $authResult;
     }
 
-    public function getAdmins(EntityManagerInterface $entityManager)
+    public function getAdmins()
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')
            ->from('Application\Entity\User', 'AS u')
            ->where('u.role = ?1')
@@ -35,9 +34,9 @@ class UserRepository extends EntityRepository
         return $query->getResult() ? $query->getResult() : false;
     }
 
-    public function getUsersQueryBuilder(EntityManagerInterface $entityManager)
+    public function getUsersQueryBuilder()
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')
             ->from('Application\Entity\User', 'AS u')
             ->where('u.role = ?1')
@@ -47,10 +46,10 @@ class UserRepository extends EntityRepository
         return $qb ? $qb : false;
     }
 
-    public function searchUser(EntityManagerInterface $entityManager, $name)
+    public function searchUser($name)
     {
         $name = '%' . $name . '%';
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u.id, u.name')
             ->from('Application\Entity\User', 'AS u')
             ->where('u.name LIKE :name')

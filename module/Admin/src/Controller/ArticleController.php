@@ -41,7 +41,7 @@ class ArticleController extends AbstractActionController
 
         $articlesQueryBuilder = $this->entityManager
                                      ->getRepository(Article::class)
-                                     ->getArticlesQueryBuilder($this->entityManager);
+                                     ->getArticlesQueryBuilder();
 
         $adapter = new DoctrinePaginator(new ORMPaginator($articlesQueryBuilder));
         $paginator = new Paginator($adapter);
