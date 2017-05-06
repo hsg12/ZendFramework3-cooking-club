@@ -100,6 +100,12 @@ class ArticleFilter extends InputFilter
             'validators' => [
                 ['name'    => 'FileUploadFile'],
                 ['name'    => 'FileIsImage'],
+                [
+                    'name' => 'Zend\Validator\File\Extension',
+                    'options' => [
+                        'extension' => ['png', 'jpg', 'jpeg', 'gif'],
+                    ],
+                ],
             ],
             'filters'  => [
                 [

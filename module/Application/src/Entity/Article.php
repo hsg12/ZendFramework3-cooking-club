@@ -142,8 +142,12 @@ class Article
      * @Annotation\Name("file")
      * @Annotation\Attributes({"class":"jfilestyle", "id":"file"})
      * @Annotation\Options({"label":"Upload image"})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Extension", "options":{
+     *     "extension":{"png", "jpg", "jpeg", "gif"}
+     * }})
+     * @Annotation\Validator({"name":"Zend\Validator\File\IsImage"})
+     * @Annotation\Input("Zend\InputFilter\FileInput")
      * @Annotation\Filter({
-     *     "type":"Zend\InputFilter\FileInput",
      *     "name":"FileRenameUpload",
      *     "options":{
      *         "target":"./public_html/img/article/",
