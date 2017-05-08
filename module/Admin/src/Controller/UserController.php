@@ -124,6 +124,8 @@ class UserController extends AbstractActionController
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
+        $this->flashMessenger()->setNamespace('success')->addMessage(ucfirst($user->getRole()) . ' removed');
+
         return $this->redirect()->toRoute('admin/users', [], ['query' => ['page' => $page]]);
     }
 }
