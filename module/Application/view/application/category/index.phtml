@@ -1,5 +1,9 @@
 <?php
-$headTitle = $this->category->getName();
+if ($this->category) {
+    $headTitle = $this->category->getName();
+} else {
+    $headTitle = 'Category';
+}
 $this->headTitle($headTitle);
 ?>
 <?php if (count($this->category) == 0) : ?>

@@ -197,6 +197,12 @@ class ArticleController extends AbstractActionController
             if ($form->isValid() && empty($form->getMessages())) {
                 $article = $form->getData();
                 if ($fileName) {
+                    $oldFileName = $article->getImage();
+
+                    if (is_file(getcwd() . '/public_html' . $oldFileName)) {
+                        unlink(getcwd() . '/public_html' . $oldFileName);
+                    }
+
                     $article->setImage('/img/article/' . $fileName);
                 }
 

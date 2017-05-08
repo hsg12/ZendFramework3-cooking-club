@@ -15,6 +15,8 @@ use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Admin\Form\CategoryForm;
 use Authentication\Service\ValidationServiceInterface;
 
+use Application\Entity\Article;
+
 class CategoryController extends AbstractActionController
 {
     private $entityManager;
@@ -36,6 +38,7 @@ class CategoryController extends AbstractActionController
 
     public function indexAction()
     {
+        $paginator = false;
         $categoriesQueryBuilder = $this->entityManager
                                        ->getRepository(Category::class)
                                        ->getCategoriesQueryBuilder();
@@ -49,7 +52,9 @@ class CategoryController extends AbstractActionController
         $itemCountPerPage = 10;
         $paginator->setItemCountPerPage($itemCountPerPage);
 
-        $pageNumber = (int)$paginator->getCurrentPageNumber();
+        if ($paginator) {
+            $pageNumber = (int)$paginator->getCurrentPageNumber();
+        }
 
         return new ViewModel([
             'categories' => $paginator,
@@ -167,6 +172,20 @@ class CategoryController extends AbstractActionController
         ];
     }
 
+    private function getArticles($categoryId)
+    {
+        $result = [];
+        $categories = $this->entityManager->getRepository(Category::class)->findBy(['parentId' => $categoryId]);
+        if (! empty($categories)) {
+            foreach ($categories as $category) {
+                $result[] = $category;
+                $result[] = $this->getArticles($category->getId());
+            }
+        }
+
+        return $result;
+    }
+
     public function deleteAction()
     {
         $request    = $this->getRequest();
@@ -177,6 +196,54 @@ class CategoryController extends AbstractActionController
         if (! $request->isPost() || ! $pageNumber || ! $id || ! $category) {
             return $this->notFoundAction();
         }
+
+
+        $foo = $this->getArticles($id);
+
+        $result = [];
+        array_walk_recursive($foo, function($value) use (&$result){
+            $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $value->getId()]);
+
+            if (empty($articles)) {
+                unset($articles);
+            }
+
+            if (isset($articles)) {
+                $result =  $articles;
+            }
+
+        });
+
+        if (is_array($result) && !empty($result)) {
+            foreach ($result as $article) {
+                if (is_file(getcwd() . '/public_html' . $article->getImage())) {
+                    unlink(getcwd() . '/public_html' . $article->getImage());
+                }
+            }
+        }
+
+
+        $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $category]);
+
+        if ($articles) {
+            $images = [];
+            foreach ($articles as $article) {
+                $images[] = $article->getImage();
+            }
+
+
+            if (is_array($images) && !empty($images)) {
+                foreach ($images as $image) {
+                    if (is_file(getcwd() . '/public_html' . $image)) {
+                        unlink(getcwd() . '/public_html' . $image);
+                    }
+                }
+            }
+
+        }
+
+
+
 
         $this->entityManager->remove($category);
         $this->entityManager->flush();
