@@ -106,6 +106,12 @@ class ArticleFilter extends InputFilter
                         'extension' => ['png', 'jpg', 'jpeg', 'gif'],
                     ],
                 ],
+                [
+                    'name' => 'Zend\Validator\File\Size',
+                    'options' => [
+                        'max' => 20000000,
+                    ],
+                ],
             ],
             'filters'  => [
                 [
