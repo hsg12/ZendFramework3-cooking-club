@@ -171,14 +171,16 @@ class CategoryController extends AbstractActionController
         ];
     }
 
-    private function getNestedArticlesChain($categoryId)
+    private function getNestedCategoriesChain($categoryId)
     {
         $result = [];
         $categories = $this->entityManager->getRepository(Category::class)->findBy(['parentId' => $categoryId]);
         if (! empty($categories)) {
             foreach ($categories as $category) {
-                $result[] = $category;
-                $result[] = $this->getNestedArticlesChain($category->getId());
+                if (!empty($category)) {
+                    $result[] = $category;
+                    $result[] = $this->getNestedCategoriesChain($category->getId());
+                }
             }
         }
 
@@ -197,44 +199,28 @@ class CategoryController extends AbstractActionController
         }
 
         /* Block for deletion nested articles images (on server) (If category has nested categories) */
-        $nestedArticlesChain = $this->getNestedArticlesChain($id);
+        $nestedCategoriesChain = $this->getNestedCategoriesChain($id);
 
-        $nestedArticles = [];
-        array_walk_recursive($nestedArticlesChain, function($value) use (&$nestedArticles){
+        array_walk_recursive($nestedCategoriesChain, function($value) {
             $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $value->getId()]);
 
-            if (empty($articles)) {
-                unset($articles);
-            }
-
             if (isset($articles)) {
-                $nestedArticles = $articles;
+                array_walk_recursive($articles, function($article){
+                    if (is_file(getcwd() . '/public_html' . $article->getImage())) {
+                        unlink(getcwd() . '/public_html' . $article->getImage());
+                    }
+                });
             }
         });
-
-        if (is_array($nestedArticles) && !empty($nestedArticles)) {
-            foreach ($nestedArticles as $article) {
-                if (is_file(getcwd() . '/public_html' . $article->getImage())) {
-                    unlink(getcwd() . '/public_html' . $article->getImage());
-                }
-            }
-        }
         /* End block */
 
         /* Block for deletion articles images in category (on server) (If category has not nested categories) */
         $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $category]);
 
         if ($articles) {
-            $images = [];
             foreach ($articles as $article) {
-                $images[] = $article->getImage();
-            }
-
-            if (is_array($images) && !empty($images)) {
-                foreach ($images as $image) {
-                    if (is_file(getcwd() . '/public_html' . $image)) {
-                        unlink(getcwd() . '/public_html' . $image);
-                    }
+                if (is_file(getcwd() . '/public_html' . $article->getImage())) {
+                    unlink(getcwd() . '/public_html' . $article->getImage());
                 }
             }
         }

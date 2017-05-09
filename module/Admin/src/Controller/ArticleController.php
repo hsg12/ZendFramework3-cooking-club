@@ -196,11 +196,11 @@ class ArticleController extends AbstractActionController
 
             if ($form->isValid() && empty($form->getMessages())) {
                 $article = $form->getData();
-                if ($fileName) {
-                    $oldFileName = $article->getImage();
 
-                    if (is_file(getcwd() . '/public_html' . $oldFileName)) {
-                        unlink(getcwd() . '/public_html' . $oldFileName);
+                if ($fileName) {
+                    $oldImage = $article->getImage();
+                    if (is_file(getcwd() . '/public_html' . $oldImage)) {
+                        unlink(getcwd() . '/public_html' . $oldImage);
                     }
 
                     $article->setImage('/img/article/' . $fileName);
@@ -234,13 +234,10 @@ class ArticleController extends AbstractActionController
             return $this->notFoundAction();
         }
 
-        /* Block for deletion articles in category (If category has not nested categories) */
-
+        /* Block for deletion article image */
         if ($article) {
-            $image = $article->getImage();
-
-            if (is_file(getcwd() . '/public_html' . $image)) {
-                unlink(getcwd() . '/public_html' . $image);
+            if (is_file(getcwd() . '/public_html' . $article->getImage())) {
+                unlink(getcwd() . '/public_html' . $article->getImage());
             }
         }
         /* End block */
