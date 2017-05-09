@@ -142,10 +142,13 @@ class Article
      * @Annotation\Name("file")
      * @Annotation\Attributes({"class":"jfilestyle", "id":"file"})
      * @Annotation\Options({"label":"Upload image"})
-     *
-     *
+     * @Annotation\Validator({"name":"Zend\Validator\File\Extension", "options":{
+     *     "extension":{"png", "jpeg", "jpg", "gif"}
+     * }})
+     * @Annotation\Validator({"name":"Zend\Validator\File\IsImage"})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Size", "options":{"max":"20000000"}})
+     * @Annotation\Input("Zend\InputFilter\FileInput")
      * @Annotation\Filter({
-     *     "type":"Zend\InputFilter\FileInput",
      *     "name":"FileRenameUpload",
      *     "options":{
      *         "target":"./public_html/img/article/",
@@ -155,8 +158,9 @@ class Article
      *         "randomize":false
      *     }
      * })
+     * @Annotation\AllowEmpty({"allowempty":"true"})
      */
-    private $image = '/img/article/no-image.jpg';
+    private $image;
 
     /**
      * @Annotation\Type("Zend\Form\Element\Submit")

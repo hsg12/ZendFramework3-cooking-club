@@ -234,6 +234,17 @@ class ArticleController extends AbstractActionController
             return $this->notFoundAction();
         }
 
+        /* Block for deletion articles in category (If category has not nested categories) */
+
+        if ($article) {
+            $image = $article->getImage();
+
+            if (is_file(getcwd() . '/public_html' . $image)) {
+                unlink(getcwd() . '/public_html' . $image);
+            }
+        }
+        /* End block */
+
         $this->entityManager->remove($article);
         $this->entityManager->flush();
 

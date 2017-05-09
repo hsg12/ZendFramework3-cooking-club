@@ -84,7 +84,7 @@ $this->headTitle($headTitle);
             <td><?= $this->escapeHtml($article->getCategory()->getName()) ?></td>
             <td><?= $this->escapeHtml($article->getIsPublic()) ? 'Yes' : 'No'; ?></td>
             <td class="article-image-box-admin-page">
-                <img src="<?= $this->escapeHtml($article->getImage()) ?>" width="30px" height="25px" alt="image">
+                <img src="<?= $this->getImage($this, $article->getImage()) ?>" width="30px" height="25px" alt="image">
             </td>
             <td>
                 <a href="<?= $this->url('admin/articles', ['page' => $this->pageNumber, 'action' => 'edit', 'id' => (int)$article->getId()]) ?>"

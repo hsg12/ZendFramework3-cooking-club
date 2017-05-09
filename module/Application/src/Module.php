@@ -26,6 +26,7 @@ class Module
                 'getShortString'    => View\Helper\GetShortString::class,
                 'getFlashMessenger' => View\Helper\GetFlashMessenger::class,
                 'cutStr'            => View\Helper\CutStr::class,
+                'getImage'          => View\Helper\GetImage::class,
             ],
             'factories' => [
                 'getCategory' => function ($container) {

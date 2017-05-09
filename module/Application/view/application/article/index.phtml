@@ -14,7 +14,7 @@ $this->headTitle($headTitle);
                 <?= nl2br($this->escapeHtml($article->getDescription())) ?>
             </div>
             <div class="article-recipe-img">
-                <img src="<?= $article->getImage() ?>" alt="<?= $article->getTitle() ?>" class="img-responsive">
+                <img src="<?= $this->getImage($this, $article->getImage()) ?> " alt="<?= $article->getTitle() ?>" class="img-responsive">
             </div>
             <div>
                 <h4 class="h4-bold">Ingredients:</h4>

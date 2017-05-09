@@ -62,7 +62,7 @@ $form->prepare();
                                     break;
                                 case 'file':
                                     $formElement .= '<div class="col-sm-9">';
-                                    $formElement .= '<p><img src="' . $this->article->getImage() . '" width="100px" height="50%" alt="image"></p>';
+                                    $formElement .= '<p><img src="' . $this->getImage($this, $article->getImage()) . '" width="100px" height="50%" alt="image"></p>';
                                     $formElement .= $this->formFile($element);
                                     $formElement .= $this->formElementErrors($element);
                                     $formElement .= '</div>';

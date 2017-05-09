@@ -16,7 +16,7 @@ $this->headTitle($headTitle);
             </div>
             <div class="panel-body">
                 <div class="app-category-description-image-box">
-                    <img src="<?= $this->escapeHtml($article->getImage()) ?>"
+                    <img src="<?= $this->getImage($this, $article->getImage()) ?>"
                          alt="<?= $this->escapeHtml($article->getTitle()) ?>"
                          class="pull-left img-responsive"
                          width="20%"

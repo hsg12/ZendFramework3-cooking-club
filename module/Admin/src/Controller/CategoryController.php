@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Category;
+use Application\Entity\Article;
 use Zend\Paginator\Paginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
@@ -14,8 +15,6 @@ use Zend\Form\FormInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Admin\Form\CategoryForm;
 use Authentication\Service\ValidationServiceInterface;
-
-use Application\Entity\Article;
 
 class CategoryController extends AbstractActionController
 {
@@ -172,14 +171,14 @@ class CategoryController extends AbstractActionController
         ];
     }
 
-    private function getArticles($categoryId)
+    private function getNestedArticlesChain($categoryId)
     {
         $result = [];
         $categories = $this->entityManager->getRepository(Category::class)->findBy(['parentId' => $categoryId]);
         if (! empty($categories)) {
             foreach ($categories as $category) {
                 $result[] = $category;
-                $result[] = $this->getArticles($category->getId());
+                $result[] = $this->getNestedArticlesChain($category->getId());
             }
         }
 
@@ -197,11 +196,11 @@ class CategoryController extends AbstractActionController
             return $this->notFoundAction();
         }
 
+        /* Block for deletion nested articles images (on server) (If category has nested categories) */
+        $nestedArticlesChain = $this->getNestedArticlesChain($id);
 
-        $foo = $this->getArticles($id);
-
-        $result = [];
-        array_walk_recursive($foo, function($value) use (&$result){
+        $nestedArticles = [];
+        array_walk_recursive($nestedArticlesChain, function($value) use (&$nestedArticles){
             $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $value->getId()]);
 
             if (empty($articles)) {
@@ -209,20 +208,20 @@ class CategoryController extends AbstractActionController
             }
 
             if (isset($articles)) {
-                $result =  $articles;
+                $nestedArticles = $articles;
             }
-
         });
 
-        if (is_array($result) && !empty($result)) {
-            foreach ($result as $article) {
+        if (is_array($nestedArticles) && !empty($nestedArticles)) {
+            foreach ($nestedArticles as $article) {
                 if (is_file(getcwd() . '/public_html' . $article->getImage())) {
                     unlink(getcwd() . '/public_html' . $article->getImage());
                 }
             }
         }
+        /* End block */
 
-
+        /* Block for deletion articles images in category (on server) (If category has not nested categories) */
         $articles = $this->entityManager->getRepository(Article::class)->findBy(['category' => $category]);
 
         if ($articles) {
@@ -231,7 +230,6 @@ class CategoryController extends AbstractActionController
                 $images[] = $article->getImage();
             }
 
-
             if (is_array($images) && !empty($images)) {
                 foreach ($images as $image) {
                     if (is_file(getcwd() . '/public_html' . $image)) {
@@ -239,11 +237,8 @@ class CategoryController extends AbstractActionController
                     }
                 }
             }
-
         }
-
-
-
+        /* End block */
 
         $this->entityManager->remove($category);
         $this->entityManager->flush();
