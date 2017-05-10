@@ -197,6 +197,7 @@ class ArticleController extends AbstractActionController
             if ($form->isValid() && empty($form->getMessages())) {
                 $article = $form->getData();
 
+                /* Block for replacing old image */
                 if ($fileName) {
                     $oldImage = $article->getImage();
                     if (is_file(getcwd() . '/public_html' . $oldImage)) {
@@ -205,6 +206,7 @@ class ArticleController extends AbstractActionController
 
                     $article->setImage('/img/article/' . $fileName);
                 }
+                /* End block */
 
                 $this->entityManager->persist($article);
                 $this->entityManager->flush();
@@ -234,7 +236,7 @@ class ArticleController extends AbstractActionController
             return $this->notFoundAction();
         }
 
-        /* Block for deletion article image */
+        /* Block for deletion article image on server */
         if ($article) {
             if (is_file(getcwd() . '/public_html' . $article->getImage())) {
                 unlink(getcwd() . '/public_html' . $article->getImage());

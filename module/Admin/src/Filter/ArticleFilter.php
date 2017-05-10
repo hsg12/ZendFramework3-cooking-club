@@ -94,9 +94,10 @@ class ArticleFilter extends InputFilter
         ]);
 
         $this->add([
-            'type'     => FileInput::class,
-            'name'     => 'file',
-            'required' => false,
+            'type'       => FileInput::class,
+            'name'       => 'file',
+            'required'   => false,
+            'allowEmpty' => true,
             'validators' => [
                 ['name'    => 'FileUploadFile'],
                 ['name'    => 'FileIsImage'],
