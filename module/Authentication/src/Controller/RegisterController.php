@@ -59,7 +59,7 @@ class RegisterController extends AbstractActionController
                 if ($this->validationService->isObjectExists($repository, $user->getName(), ['name'])) {
                     $nameExists = 'User with name ' . $user->getName() . ' exists already';
                     $form->get('name')->setMessages(['nameExists' => $nameExists]);
-                    return ['form'  => $form];
+                    return ['form' => $form];
                 }
 
                 $cloneUser = clone $user; // to have not hashed password

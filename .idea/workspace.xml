@@ -30,14 +30,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ArticleController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ArticleController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/ArticleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
+            <state relative-caret-position="4312">
               <caret line="208" column="31" lean-forward="false" selection-start-line="208" selection-start-column="31" selection-end-line="208" selection-end-column="31" />
               <folding>
                 <element signature="e#36#67#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/module/Authentication/src/Controller/RegisterController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="61" column="35" lean-forward="false" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppAuthStorage.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/module/Authentication/src/Model/AppAuthStorage.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="56" lean-forward="false" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/module/Authentication/src/Controller/LoginController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="57" column="41" lean-forward="false" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -55,7 +85,7 @@
       <file leaf-file-name="index.phtml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Admin/view/admin/article/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
+            <state relative-caret-position="1892">
               <caret line="86" column="38" lean-forward="false" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="77" />
               <folding>
                 <marker date="1494343202532" expanded="true" signature="3568:3593" ph="..." />
@@ -67,8 +97,8 @@
       <file leaf-file-name="Module.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Application/src/Module.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="17" column="64" lean-forward="true" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
+            <state relative-caret-position="286">
+              <caret line="17" column="64" lean-forward="false" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -77,7 +107,7 @@
       <file leaf-file-name="Article.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Application/src/Entity/Article.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
+            <state relative-caret-position="2266">
               <caret line="104" column="7" lean-forward="false" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
               <folding />
             </state>
@@ -87,31 +117,10 @@
       <file leaf-file-name="ArticleFilter.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Admin/src/Filter/ArticleFilter.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
+            <state relative-caret-position="2090">
               <caret line="96" column="25" lean-forward="false" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chickpea-tomato-soup.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/img/article/chickpea-tomato-soup.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chicken-bbq.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/img/article/chicken-bbq.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cheese-and-tomato-souffles.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/img/article/cheese-and-tomato-souffles.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -175,7 +184,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/autoload/mail.local.php" />
         <option value="$PROJECT_DIR$/config/autoload/mail.global.php" />
         <option value="$PROJECT_DIR$/module/Contact/src/Controller/IndexController.php" />
         <option value="$PROJECT_DIR$/module/Application/src/View/Helper/CutStr.php" />
@@ -205,8 +213,6 @@
         <option value="$PROJECT_DIR$/module/Application/config/module.config.php" />
         <option value="$PROJECT_DIR$/module/Contact/src/Module.php" />
         <option value="$PROJECT_DIR$/config/autoload/doctrine.local.php" />
-        <option value="$PROJECT_DIR$/module/Authentication/src/Controller/LoginController.php" />
-        <option value="$PROJECT_DIR$/module/Authentication/src/Controller/RegisterController.php" />
         <option value="$PROJECT_DIR$/module/Portfolio/view/portfolio/index/index.phtml" />
         <option value="$PROJECT_DIR$/public_html/js/app-script.js" />
         <option value="$PROJECT_DIR$/module/Application/src/Entity/Repository/UserRepository.php" />
@@ -226,6 +232,9 @@
         <option value="$PROJECT_DIR$/module/Admin/src/Filter/ArticleFilter.php" />
         <option value="$PROJECT_DIR$/module/Application/src/Module.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Controller/ArticleController.php" />
+        <option value="$PROJECT_DIR$/module/Authentication/src/Controller/RegisterController.php" />
+        <option value="$PROJECT_DIR$/module/Authentication/src/Model/AppAuthStorage.php" />
+        <option value="$PROJECT_DIR$/module/Authentication/src/Controller/LoginController.php" />
       </list>
     </option>
   </component>
@@ -318,7 +327,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -396,6 +404,120 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Authentication" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Authentication" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Authentication" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Authentication" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simplesite.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Authentication" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -852,6 +974,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1103,11 +1226,13 @@
       <workItem from="1494262242083" duration="14522000" />
       <workItem from="1494326372992" duration="15891000" />
       <workItem from="1494408478399" duration="2914000" />
+      <workItem from="1494434500761" duration="49000" />
+      <workItem from="1494603225069" duration="43000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="643610000" />
+    <option name="totallyTimeSpent" value="643702000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1155,28 +1280,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Entity/Repository/UserRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1232">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Entity/Repository/ArticleRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="27" column="38" lean-forward="false" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Admin/src/Form/ArticleForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2442">
-          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/Admin/view/admin/user/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -1416,7 +1519,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Application/src/Entity/Article.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
+        <state relative-caret-position="2266">
           <caret line="104" column="7" lean-forward="false" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
           <folding />
         </state>
@@ -1424,7 +1527,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Admin/src/Filter/ArticleFilter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
+        <state relative-caret-position="2090">
           <caret line="96" column="25" lean-forward="false" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
           <folding />
         </state>
@@ -1432,15 +1535,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Application/src/Module.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="17" column="64" lean-forward="true" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
+        <state relative-caret-position="286">
+          <caret line="17" column="64" lean-forward="false" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Admin/view/admin/article/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
+        <state relative-caret-position="1892">
           <caret line="86" column="38" lean-forward="false" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="77" />
           <folding>
             <marker date="1494343202532" expanded="true" signature="3568:3593" ph="..." />
@@ -1450,11 +1553,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/ArticleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
+        <state relative-caret-position="4312">
           <caret line="208" column="31" lean-forward="false" selection-start-line="208" selection-start-column="31" selection-end-line="208" selection-end-column="31" />
           <folding>
             <element signature="e#36#67#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Authentication/src/Controller/RegisterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="61" column="35" lean-forward="false" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Authentication/src/Model/AppAuthStorage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="56" lean-forward="false" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Authentication/src/Controller/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="57" column="41" lean-forward="false" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
